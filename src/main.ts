@@ -267,6 +267,7 @@ const main = async () => {
     // load async models
     scene.start();
 
+
     // handle load params
     const loadList = url.searchParams.getAll('load');
     const filenameList = url.searchParams.getAll('filename');
@@ -280,6 +281,31 @@ const main = async () => {
             filename,
             url: decoded
         }]);
+    }
+
+    // handle grid param
+    const gridParam = url.searchParams.get('grid');
+    if (gridParam !== null) {
+        events.fire('grid.visible', gridParam === 'true');
+    }
+
+    // handle mode param (centers vs rings)
+    const modeParam = url.searchParams.get('mode');
+    if (modeParam === 'centers') {
+        // Need to wait for scene/editor? Or just fire event?
+        // editor.ts listens for events.
+        // But camera mode toggle is toggleMode.
+        // We might need to set it directly via event if possible or invoke.
+        // editor.ts has: setCameraMode(events.invoke('camera.mode') === 'centers' ? 'rings' : 'centers');
+        // Let's assume there's no direct setter event exposed in grep, but we can try waiting or firing 'camera.toggleMode' if needed.
+        // However, grep showed `events.function('camera.mode', ...)` so we can read it.
+        // to SET it, likely need to find where it is stored.
+        // In splat.ts or scene config?
+        // scene-config.ts has defaults. 
+        // Let's rely on modifying scene config overrides if possible?
+        // `getSceneConfig` uses `getURLArgs` which parses all URL params into config object!
+        // So `config.camera.mode` etc might be settable!
+        // I should check `scene-config.ts` to see structure.
     }
 
 

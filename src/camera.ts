@@ -637,7 +637,7 @@ class Camera extends Element {
     // pick mode
 
     // render picker contents
-    pickPrep(splat: Splat, op: 'add'|'remove'|'set') {
+    pickPrep(splat: Splat, op: 'add' | 'remove' | 'set') {
         const { width, height } = this.scene.targetSize;
         const worldLayer = this.scene.app.scene.layers.getLayerByName('World');
 
